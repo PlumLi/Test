@@ -1,4 +1,4 @@
-#!/vtest/bin/python
+#!/venv/bin/python
 # -*- coding: utf-8 -*-
 # @Time    : 2019/4/17 下午10:15
 # @Author  : PlumLi
@@ -7,17 +7,20 @@
 # @esc     : 
 from tkinter import *
 from tkinter.filedialog import *
-import urllib
+import urllib.request
 
 
 def upload():
     filename = askopenfilename()
-    url = "http://127.0.0.1:5000/upload"
-    data = '''-----------------------------1469225038527020311763521840
-Content-Disposition: form-data; name="file"; filename="%s"
-Content-Type: text/plain
-%s
------------------------------1469225038527020311763521840--''' % (filename.split('/')[-1])
+    filename = filename.split('/')[-1]
+    print("filename", filename)
+
+    url = "http://127.0.0.1:5000/"
+    response = urllib.request.urlopen(url)
+
+    #req.add_header("User-Agent", "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.103 Safari/537.36")
+    #response = urllib.urlopen(req)
+    print(response.read().decode('UTF-8'))
 
 
 root = Tk()

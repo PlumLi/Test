@@ -1,4 +1,4 @@
-#!/vtest/bin/python
+#!/venv/bin/python
 # -*- coding: utf-8 -*-
 # @Time    : 2019/4/17 下午9:11
 # @Author  : PlumLi
