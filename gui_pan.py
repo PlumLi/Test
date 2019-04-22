@@ -8,19 +8,28 @@
 from tkinter import *
 from tkinter.filedialog import *
 import urllib.request
-
+import urllib.response
+import urllib.parse
 
 def upload():
     filename = askopenfilename()
-    filename = filename.split('/')[-1]
-    print("filename", filename)
 
-    url = "http://127.0.0.1:5000/"
-    response = urllib.request.urlopen(url)
+    url = "http://127.0.0.1:5000/upload"
+    data = '''------WebKitFormBoundarygAODS5NgAM4O0d1I
+Content-Disposition: form-data; name="file"; filename="%s"
+Content-Type: application/octet-stream
 
-    #req.add_header("User-Agent", "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.103 Safari/537.36")
-    #response = urllib.urlopen(req)
-    print(response.read().decode('UTF-8'))
+[file]
+------WebKitFormBoundarygAODS5NgAM4O0d1I--''' % filename.split('/')[-1]
+    with open(filename, 'rb') as f:
+        file = f.read()
+    data = data.encode().replace('[file]'.encode(), file)
+
+    req = urllib.request.Request(url, data)
+    req.add_header("Content-Type", "multipart/form-data; boundary=----WebKitFormBoundarylH3DR2Tvdx6APu99")
+    response = urllib.request.urlopen(req)
+    html = response.read()
+    print(html)
 
 
 root = Tk()
