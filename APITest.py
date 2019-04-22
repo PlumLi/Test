@@ -77,3 +77,4 @@ class SendData:
     def postdata(self, data=create_json(), url=find_URL()):
         #发送数据
         pass
+
